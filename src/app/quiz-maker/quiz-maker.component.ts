@@ -59,7 +59,15 @@ export class QuizMakerComponent  {
 
 
   createQuiz(cat: string, difficulty: string, subcat?: string): void {
-    console.log(cat, subcat, difficulty);
-    this.questions$ = this.quizService.createQuiz(subcat ?? cat, difficulty as Difficulty);
+    console.log('asdflkjasdlfk');
+    console.log(cat);
+    if (subcat) {
+      console.log(subcat, cat);
+    } else {
+      console.log(cat);
+    }
+    const catstring = (subcat ?? cat).toString();
+    console.log(catstring);
+    this.questions$ = this.quizService.createQuiz(subcat && subcat !== '0' ? subcat : cat, difficulty as Difficulty);
   }
 }

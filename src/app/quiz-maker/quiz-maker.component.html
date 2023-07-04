@@ -7,7 +7,7 @@
       </option>
     </select>
     <select #subcategory id="subCategorySelect">
-      <option>Select subcategory</option>
+      <option value="0">Select subcategory</option>
       <option [value]="category.id" *ngFor="let category of searchSubcategories">
         {{category.name}}
       </option>

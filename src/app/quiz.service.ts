@@ -23,6 +23,7 @@ export class QuizService {
 
   /** Pulls down questions for the selected options */
   createQuiz(categoryId: string, difficulty: Difficulty): Observable<Question[]> {
+    console.log(categoryId, difficulty);
     return this.http.get<{ results: ApiQuestion[] }>(
         `${this.API_URL}/api.php?amount=5&category=${categoryId}&difficulty=${difficulty.toLowerCase()}&type=multiple`)
       .pipe(
