@@ -14,12 +14,14 @@ export class QuizService {
   constructor(private http: HttpClient) {
   }
 
+  /** Pulls down cateogry list */
   getAllCategories(): Observable<Category[]> {
     return this.http.get<{ trivia_categories: Category[] }>(this.API_URL + "api_category.php").pipe(
       map(res => res.trivia_categories)
     );
   }
 
+  /** Pulls down questions for the selected options */
   createQuiz(categoryId: string, difficulty: Difficulty): Observable<Question[]> {
     return this.http.get<{ results: ApiQuestion[] }>(
         `${this.API_URL}/api.php?amount=5&category=${categoryId}&difficulty=${difficulty.toLowerCase()}&type=multiple`)
