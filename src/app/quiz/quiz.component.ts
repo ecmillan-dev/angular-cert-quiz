@@ -1,4 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import {
+  Component,
+  inject,
+  Input,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Difficulty, Question } from '../data.models';
 import { QuizService } from '../quiz.service';
 import { Router } from '@angular/router';
@@ -8,7 +14,7 @@ import { Router } from '@angular/router';
   templateUrl: './quiz.component.html',
   styleUrls: ['./quiz.component.css'],
 })
-export class QuizComponent {
+export class QuizComponent implements OnChanges {
   @Input()
   questions: Question[] | null = [];
 
@@ -18,6 +24,13 @@ export class QuizComponent {
   hasUsedChange: boolean = false;
   quizService = inject(QuizService);
   router = inject(Router);
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const questionChange = changes['questions'];
+    if (questionChange) {
+      this.hasUsedChange = false;
+    }
+  }
 
   submit(): void {
     this.quizService.computeScore(this.questions ?? [], this.userAnswers);
@@ -31,6 +44,12 @@ export class QuizComponent {
       .subscribe((newQuestion) => {
         console.log(newQuestion);
         this.hasUsedChange = true;
+        const questionIndex = this.questions?.findIndex(
+          (q) => q.question === question.question
+        );
+        if (questionIndex && this.questions) {
+          this.questions[questionIndex] = newQuestion[0];
+        }
       });
   }
 }
