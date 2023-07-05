@@ -28,6 +28,7 @@ export class QuizComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const questionChange = changes['questions'];
     if (questionChange) {
+      console.log(questionChange);
       this.hasUsedChange = false;
     }
   }

@@ -22,6 +22,11 @@ export class QuestionComponent implements OnChanges {
     if (questionChange) {
       this.hasChangedQuestion = questionChange.currentValue;
     }
+
+    const newQuestionChange = changes['question'];
+    if (newQuestionChange) {
+      this.question = newQuestionChange.currentValue;
+    }
   }
   @Input({ required: true })
   question!: Question;
