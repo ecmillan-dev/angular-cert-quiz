@@ -18,6 +18,8 @@ export interface Question {
   correct_answer: string;
   incorrect_answers: string[];
   all_answers: string[];
+  type: string;
+  difficulty: string;
 }
 
 export interface Results {
@@ -26,5 +28,4 @@ export interface Results {
   score: number;
 }
 
-
-export type Difficulty = "Easy" | "Medium" | "Hard";
+export type Difficulty = 'Easy' | 'Medium' | 'Hard';

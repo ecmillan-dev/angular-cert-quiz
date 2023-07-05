@@ -3,13 +3,20 @@
     <select #category id="categorySelect" (change)="setSubcategories($event)">
       <option>Select category</option>
       <option [value]="category.id" *ngFor="let category of categories">
-        {{category.name}}
+        {{ category.name }}
       </option>
     </select>
-    <select [hidden]="searchSubcategories.length === 0" #subcategory id="subCategorySelect">
+    <select
+      [hidden]="searchSubcategories.length === 0"
+      #subcategory
+      id="subCategorySelect"
+    >
       <option value="0">Select subcategory</option>
-      <option [value]="category.id" *ngFor="let category of searchSubcategories">
-        {{category.name}}
+      <option
+        [value]="category.id"
+        *ngFor="let category of searchSubcategories"
+      >
+        {{ category.name }}
       </option>
     </select>
     <select #difficulty id="difficultySelect">
@@ -18,10 +25,18 @@
       <option>Medium</option>
       <option>Hard</option>
     </select>
-    <button class="primary" id="createBtn" (click)="createQuiz(category.value, difficulty.value, subcategory.value)">Create</button>
+    <button
+      class="primary"
+      id="createBtn"
+      (click)="createQuiz(category.value, difficulty.value, subcategory.value)"
+    >
+      Create
+    </button>
   </div>
-
 </div>
 <div class="row">
-   <app-quiz [questions]="questions$ | async" ></app-quiz>
+  <app-quiz
+    [questions]="questions$ | async"
+    [categoryId]="category.value"
+  ></app-quiz>
 </div>
