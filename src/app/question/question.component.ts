@@ -23,10 +23,17 @@ export class QuestionComponent implements OnChanges {
       this.hasChangedQuestion = questionChange.currentValue;
     }
 
-    const newQuestionChange = changes['question'];
-    if (newQuestionChange) {
-      this.question = newQuestionChange.currentValue;
-    }
+    // const newQuestionChange = changes['question'];
+    // if (newQuestionChange) {
+    //   const newQ = newQuestionChange.currentValue as Question;
+    //   this.question = newQ;
+    //   // this.question.all_answers = newQ.all_answers;
+    //   // this.question.correct_answer = newQ.correct_answer;
+    //   // this.question.difficulty = newQ.difficulty;
+    //   // this.question.incorrect_answers = newQ.incorrect_answers;
+    //   // this.question.question = newQ.question;
+    //   // this.question.type = newQ.type;
+    // }
   }
   @Input({ required: true })
   question!: Question;

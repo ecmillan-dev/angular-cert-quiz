@@ -39,17 +39,19 @@ export class QuizComponent implements OnChanges {
   }
 
   onQuestionChangeRequest(question: Question) {
-    console.log(question, this.categoryId);
+    console.log('getting new q', question, this.categoryId);
     this.quizService
       .createQuiz(this.categoryId, question.difficulty as Difficulty, 1)
       .subscribe((newQuestion) => {
-        console.log(newQuestion);
+        console.log('new', newQuestion);
         this.hasUsedChange = true;
-        const questionIndex = this.questions?.findIndex(
-          (q) => q.question === question.question
-        );
-        if (questionIndex && this.questions) {
-          this.questions[questionIndex] = newQuestion[0];
+        const questionIndex =
+          this.questions?.findIndex((q) => q.question === question.question) ??
+          0;
+        console.log(questionIndex);
+        if (questionIndex >= 0 && this.questions) {
+          this.questions.splice(questionIndex, 1, { ...newQuestion[0] });
+          console.log(this.questions);
         }
       });
   }
