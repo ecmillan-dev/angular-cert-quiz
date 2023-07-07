@@ -56,8 +56,9 @@ export class QuizMakerComponent {
   }
 
   setSubcategories(cat: any): void {
+    console.log(cat);
     this.searchSubcategories = this.subcategories.filter(
-      (sc) => sc.parentId === parseFloat(cat.target.value)
+      (sc) => sc.parentId === this.categories.find(c => c.name === cat.target.value)?.id
     );
   }
 

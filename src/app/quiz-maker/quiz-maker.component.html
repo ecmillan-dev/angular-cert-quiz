@@ -1,18 +1,18 @@
 <div class="row">
   <div class="col-sm-11">
-    <!-- <select #category id="categorySelect" (change)="setSubcategories($event)">
+    <select #category id="categorySelect" (change)="setSubcategories($event)">
       <option>Select category</option>
       <option [value]="category.id" *ngFor="let category of categories">
         {{ category.name }}
       </option>
-    </select> -->
-    <input #category type="text" list="categoryAutocomplete" />
+    </select>
+    <!-- <input #category type="text" list="categoryAutocomplete" />
       <datalist id="categoryAutocomplete">
         <option>Select category</option>
       <option [value]="category.id" *ngFor="let category of categories">
         {{ category.name }}
       </option>
-      </datalist>
+      </datalist> -->
     <select
       [hidden]="searchSubcategories.length === 0"
       #subcategory
