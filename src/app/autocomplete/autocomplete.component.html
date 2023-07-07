@@ -1,1 +1,7 @@
-<p>autocomplete works!</p>
+<div class="row" *ngFor="let category of matchingCategories">
+  <app-autocomplete-option
+    [searchString]="searchString"
+    [category]="category"
+  >
+  </app-autocomplete-option>
+</div>

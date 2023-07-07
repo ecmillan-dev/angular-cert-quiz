@@ -13,6 +13,7 @@
         {{ category.name }}
       </option>
       </datalist> -->
+      <input type="text" #categoryAutocomplete placeholder="Select Category" (keyup)="onCategory($event)" />
     <select
       [hidden]="searchSubcategories.length === 0"
       #subcategory
@@ -48,17 +49,12 @@
     [categoryId]="category.value"
   ></app-quiz>
 </div>
-<div class="row">
-  <div class="row" *ngFor="let category of categories">
-    <p>
-      <app-autocomplete-option
-      [searchString]="'en'"
-      [category]="category"
-    >
-    </app-autocomplete-option>
-    </p>
+<div class="row" >
 
-    <br/><br/>
-  </div>
+  <app-autocomplete
+  *ngIf="categories?.length ?? 0 > 0"
+  [categories]="categories"
+  [searchString]="categoryAutocomplete?.value">
+  </app-autocomplete>
 
 </div>

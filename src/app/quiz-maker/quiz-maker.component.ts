@@ -24,12 +24,10 @@ export class QuizMakerComponent {
     this.fullCategories$.subscribe((categories) => {
       categories.forEach((c) => {
         const categoryParts = c.name.split(':');
-        console.log(categoryParts);
         if (!this.categories.find((sc) => sc.name === categoryParts[0])) {
           const cat = { ...c };
           cat.name = categoryParts[0].trim();
           this.categories.push(cat);
-          console.log(this.categories);
         }
 
         // try add to subcategory
@@ -77,5 +75,9 @@ export class QuizMakerComponent {
       difficulty as Difficulty,
       5
     );
+  }
+
+  onCategory(event: any) {
+    console.log('key', event);
   }
 }
