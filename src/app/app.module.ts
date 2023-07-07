@@ -9,6 +9,9 @@ import {QuizMakerComponent} from './quiz-maker/quiz-maker.component';
 import { QuizComponent } from './quiz/quiz.component';
 import { QuestionComponent } from './question/question.component';
 import { AnswersComponent } from './answers/answers.component';
+import { AutocompleteComponent } from './autocomplete/autocomplete.component';
+import { AutocompleteOptionComponent } from './autocomplete-option/autocomplete-option.component';
+import { AutocompleteOptionNamePartComponent } from './autocomplete-option-name-part/autocomplete-option-name-part.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,9 @@ import { AnswersComponent } from './answers/answers.component';
     QuizComponent,
     QuestionComponent,
     AnswersComponent,
+    AutocompleteComponent,
+    AutocompleteOptionComponent,
+    AutocompleteOptionNamePartComponent,
   ],
   imports: [
     BrowserModule,

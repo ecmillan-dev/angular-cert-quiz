@@ -1,0 +1,6 @@
+<ng-container *ngFor="let match of matches">
+  <app-autocomplete-option-name-part
+    [stringValue]="match.stringValue"
+    [isMatch]="match.isMatch"
+  ></app-autocomplete-option-name-part>
+</ng-container>

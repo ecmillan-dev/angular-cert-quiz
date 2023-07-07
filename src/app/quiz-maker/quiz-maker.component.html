@@ -48,3 +48,17 @@
     [categoryId]="category.value"
   ></app-quiz>
 </div>
+<div class="row">
+  <div class="row" *ngFor="let category of categories">
+    <p>
+      <app-autocomplete-option
+      [searchString]="'en'"
+      [category]="category"
+    >
+    </app-autocomplete-option>
+    </p>
+
+    <br/><br/>
+  </div>
+
+</div>
