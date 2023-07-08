@@ -1,60 +1,75 @@
 <div class="row">
   <div class="col-sm-11">
-    <select #category id="categorySelect" (change)="setSubcategories($event)">
-      <option>Select category</option>
-      <option [value]="category.id" *ngFor="let category of categories">
-        {{ category.name }}
-      </option>
-    </select>
-    <!-- <input #category type="text" list="categoryAutocomplete" />
-      <datalist id="categoryAutocomplete">
+    <form *ngIf="form" [formGroup]="form">
+
+      <select #category id="categorySelect" (change)="setSubcategories($event)">
         <option>Select category</option>
-      <option [value]="category.id" *ngFor="let category of categories">
-        {{ category.name }}
-      </option>
-      </datalist> -->
-      <input type="text" #categoryAutocomplete placeholder="Select Category" (keyup)="onCategory($event)" />
-    <select
-      [hidden]="searchSubcategories.length === 0"
-      #subcategory
-      id="subCategorySelect"
-    >
-      <option value="0">Select subcategory</option>
-      <option
-        [value]="category.id"
-        *ngFor="let category of searchSubcategories"
+        <option [value]="category.id" *ngFor="let category of categories">
+          {{ category.name }}
+        </option>
+      </select>
+      <!-- <input #category type="text" list="categoryAutocomplete" />
+        <datalist id="categoryAutocomplete">
+          <option>Select category</option>
+        <option [value]="category.id" *ngFor="let category of categories">
+          {{ category.name }}
+        </option>
+        </datalist> -->
+        <input type="text" placeholder="Select Category" (keyup)="onCategory($event)" [formControlName]="'Category'"/>
+      <select
+        [hidden]="searchSubcategories.length === 0"
+        #subcategory
+        id="subCategorySelect"
       >
-        {{ category.name }}
-      </option>
-    </select>
-    <select #difficulty id="difficultySelect">
-      <option>Select difficulty</option>
-      <option>Easy</option>
-      <option>Medium</option>
-      <option>Hard</option>
-    </select>
+        <option value="0">Select subcategory</option>
+        <option
+          [value]="category.id"
+          *ngFor="let category of searchSubcategories"
+        >
+          {{ category.name }}
+        </option>
+      </select>
+      <select #difficulty id="difficultySelect">
+        <option>Select difficulty</option>
+        <option>Easy</option>
+        <option>Medium</option>
+        <option>Hard</option>
+      </select>
+
+
+    </form>
+
 
     <button
       class="primary"
       id="createBtn"
-      (click)="createQuiz(category.value, difficulty.value, subcategory.value)"
+      (click)="createQuiz()"
     >
       Create
     </button>
   </div>
 </div>
 <div class="row">
-  <app-quiz
+  <!-- <app-quiz
     [questions]="questions$ | async"
     [categoryId]="category.value"
-  ></app-quiz>
+  ></app-quiz> -->
 </div>
 <div class="row" >
 
+  <!-- <app-autocomplete
+  *ngIf="categories?.length ?? 0 > 0"
+  [categories]="categories"
+  [searchString]="categoryAutocomplete?.value"
+  [hideDropdown]="hideDropdown"
+  (choice)="onChoice($event)">
+  </app-autocomplete> -->
   <app-autocomplete
   *ngIf="categories?.length ?? 0 > 0"
   [categories]="categories"
-  [searchString]="categoryAutocomplete?.value">
+  [searchString]="form.get('Category')?.value"
+  [hideDropdown]="hideDropdown"
+  (choice)="onChoice($event)">
   </app-autocomplete>
 
 </div>

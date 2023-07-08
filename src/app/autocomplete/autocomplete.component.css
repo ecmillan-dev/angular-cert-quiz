@@ -1,0 +1,11 @@
+.option {
+
+    cursor: pointer;
+    width: 100%;
+
+
+
+}
+.option:hover {
+  background-color: gray;
+}

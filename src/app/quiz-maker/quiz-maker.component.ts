@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { Category, Difficulty, Question } from '../data.models';
 import { Observable, of, distinct, mergeMap, toArray, from } from 'rxjs';
 import { QuizService } from '../quiz.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-quiz-maker',
@@ -17,8 +18,18 @@ export class QuizMakerComponent {
 
   questions$!: Observable<Question[]>;
 
-  constructor(protected quizService: QuizService) {
+  hideDropdown: boolean = false;
+
+  form: FormGroup;
+
+  constructor(protected quizService: QuizService, private formBuilder: FormBuilder) {
     this.fullCategories$ = quizService.getAllCategories();
+
+    this.form = this.formBuilder.group({
+      Category: new FormControl(),
+      SubCategory: new FormControl(),
+      Difficulty: new FormControl()
+    })
     // this.categories$.subscribe(result => console.log(result));
 
     this.fullCategories$.subscribe((categories) => {
@@ -51,6 +62,11 @@ export class QuizMakerComponent {
       // }))]);
     });
     console.log(this.categories, this.subcategories);
+
+    this.form.get('Category')?.valueChanges.subscribe(category => {
+
+      console.log(category);
+    })
   }
 
   setSubcategories(cat: any): void {
@@ -60,24 +76,27 @@ export class QuizMakerComponent {
     );
   }
 
-  createQuiz(cat: string, difficulty: string, subcat?: string): void {
+  createQuiz(): void {
+    const vals = this.form.value;
     console.log('asdflkjasdlfk');
-    console.log(cat);
-    if (subcat) {
-      console.log(subcat, cat);
-    } else {
-      console.log(cat);
-    }
-    const catstring = (subcat ?? cat).toString();
+
+
+    const catstring = (vals.SubCategory ?? vals.Category).toString();
     console.log(catstring);
     this.questions$ = this.quizService.createQuiz(
-      subcat && subcat !== '0' ? subcat : cat,
-      difficulty as Difficulty,
+      vals.SubCategory && vals.SubCategory !== '0' ? vals.SubCategory : vals.Category,
+      vals.Difficulty as Difficulty,
       5
     );
   }
 
   onCategory(event: any) {
     console.log('key', event);
+  }
+
+  onChoice(event: any) {
+    console.log('selection', event); // this is it
+    // this.hideDropdown = true;
+    this.form.get('Category')?.patchValue(event.name);
   }
 }

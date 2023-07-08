@@ -1,7 +1,12 @@
-<div class="row" *ngFor="let category of matchingCategories">
-  <app-autocomplete-option
-    [searchString]="searchString"
-    [category]="category"
-  >
-  </app-autocomplete-option>
-</div>
+
+<ng-container *ngIf="!hideDropdown">
+  <div class="row option" *ngFor="let category of matchingCategories">
+    <app-autocomplete-option
+      [searchString]="searchString"
+      [category]="category"
+      (choice)="onChoice($event)"
+    >
+    </app-autocomplete-option>
+  </div>
+
+</ng-container>
