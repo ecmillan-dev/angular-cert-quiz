@@ -1,0 +1,13 @@
+.category-autocomplete {
+  z-index: 100000000000;
+  position: absolute;
+  background-color: #F6F6F6;
+  border: 1;
+  margin-left: 10px;
+  box-shadow: 5px 5px 5px 5px gray;
+}
+
+
+.quiz-container {
+  z-index: 1;
+}

@@ -101,15 +101,17 @@ export class QuizMakerComponent {
 
   onCategory(event: any) {
     console.log('key', event);
+    this.hideDropdown = false;
   }
 
   onSubCategory(event: any) {
     console.log('key', event);
+    this.hideSubCategoryDropdown = false;
   }
 
   onChoice(event: any) {
     console.log('selection', event); // this is it
-    // this.hideDropdown = true;
+    this.hideDropdown = true;
     this.form.get('Category')?.patchValue(event.name);
     this.categoryId = event.id;
     this.searchSubcategories = this.subcategories.filter(
@@ -121,5 +123,6 @@ export class QuizMakerComponent {
   onSubcatChoice(event: any) {
     this.form.get('SubCategory')?.patchValue(event.name);
     this.categoryId = event.id;
+    this.hideSubCategoryDropdown = true;
   }
 }
