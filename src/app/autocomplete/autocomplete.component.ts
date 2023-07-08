@@ -43,4 +43,8 @@ export class AutocompleteComponent implements OnChanges {
   onChoice(event: any) {
     this.choice.emit(event);
   }
+
+  onClickRow(event: any) {
+    console.log(event);
+  }
 }
