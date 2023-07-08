@@ -77,6 +77,7 @@ export class QuizMakerComponent {
     this.searchSubcategories = this.subcategories.filter(
       (sc) => sc.parentId === this.categories.find(c => c.name === cat.target.value)?.id
     );
+    this.hideSubCategoryDropdown = false;
   }
 
   createQuiz(): void {
@@ -102,6 +103,8 @@ export class QuizMakerComponent {
   onCategory(event: any) {
     console.log('key', event);
     this.hideDropdown = false;
+    this.hideSubCategoryDropdown = true;
+    this.form.get('SubCategory')?.patchValue('');
   }
 
   onSubCategory(event: any) {
@@ -113,7 +116,9 @@ export class QuizMakerComponent {
     console.log('selection', event); // this is it
     this.hideDropdown = true;
     this.form.get('Category')?.patchValue(event.name);
+    this.form.get('SubCategory')?.patchValue('');
     this.categoryId = event.id;
+    console.log('subcats', this.subcategories);
     this.searchSubcategories = this.subcategories.filter(
       (sc) => sc.parentId === event.id
     );

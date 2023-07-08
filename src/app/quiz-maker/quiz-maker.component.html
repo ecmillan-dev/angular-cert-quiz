@@ -15,20 +15,20 @@
           {{ category.name }}
         </option>
         </datalist> -->
-        <input type="text" placeholder="Select Category" (keyup)="onCategory($event)" [formControlName]="'Category'"/>
-        <ng-container *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown" >
-          <div class="category-autocomplete">
-            <app-autocomplete
-              *ngIf="categories?.length ?? 0 > 0"
-              [categories]="categories"
-              [searchString]="form.get('Category')?.value"
-              [hideDropdown]="hideDropdown"
-              (choice)="onChoice($event)">
-            </app-autocomplete>
-          </div>
-
-
-        </ng-container>
+        <div class="column">
+          <input type="text" placeholder="Select Category" (keyup)="onCategory($event)" [formControlName]="'Category'"/>
+          <ng-container *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown" >
+            <div class="category-autocomplete">
+              <app-autocomplete
+                *ngIf="categories?.length ?? 0 > 0"
+                [categories]="categories"
+                [searchString]="form.get('Category')?.value"
+                [hideDropdown]="hideDropdown"
+                (choice)="onChoice($event)">
+              </app-autocomplete>
+            </div>
+          </ng-container>
+        </div>
         <!-- <div>
           <app-autocomplete
             *ngIf="categories?.length ?? 0 > 0"
@@ -39,7 +39,21 @@
           </app-autocomplete>
 
         </div> -->
-        <input type="text" [hidden]="searchSubcategories.length === 0" placeholder="Select SubCategory" (keyup)="onSubCategory($event)" [formControlName]="'SubCategory'"/>
+        <div class="column">
+          <input type="text" [hidden]="searchSubcategories.length === 0" placeholder="Select SubCategory" (keyup)="onSubCategory($event)" [formControlName]="'SubCategory'"/>
+          <ng-container *ngIf="(searchSubcategories?.length ?? 0 > 0) && !hideSubCategoryDropdown" >
+            <div class="category-autocomplete">
+              <app-autocomplete
+              *ngIf="searchSubcategories?.length ?? 0 > 0"
+              [categories]="searchSubcategories"
+              [searchString]="form.get('SubCategory')?.value"
+              [hideDropdown]="hideSubCategoryDropdown"
+              (choice)="onSubcatChoice($event)">
+              </app-autocomplete>
+            </div>
+          </ng-container>
+        </div>
+
       <!-- <select
         [hidden]="searchSubcategories.length === 0"
         #subcategory
@@ -53,12 +67,14 @@
           {{ category.name }}
         </option>
       </select> -->
-      <select [formControlName]="'Difficulty'" id="difficultySelect">
-        <option selected="selected">Select difficulty</option>
-        <option>Easy</option>
-        <option>Medium</option>
-        <option>Hard</option>
-      </select>
+      <div class="column">
+        <select [formControlName]="'Difficulty'" id="difficultySelect">
+          <option selected="selected">Select difficulty</option>
+          <option>Easy</option>
+          <option>Medium</option>
+          <option>Hard</option>
+        </select>
+      </div>
 
 
     </form>
@@ -94,11 +110,5 @@
 </div>
 
 <div class="row">
-  <app-autocomplete
-  *ngIf="searchSubcategories?.length ?? 0 > 0"
-  [categories]="searchSubcategories"
-  [searchString]="form.get('SubCategory')?.value"
-  [hideDropdown]="hideSubCategoryDropdown"
-  (choice)="onSubcatChoice($event)">
-  </app-autocomplete>
+
 </div>
