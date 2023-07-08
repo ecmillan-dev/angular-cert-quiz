@@ -2,12 +2,12 @@
   <div class="col-sm-11">
     <form *ngIf="form" [formGroup]="form">
 
-      <select #category id="categorySelect" (change)="setSubcategories($event)">
+      <!-- <select #category id="categorySelect" (change)="setSubcategories($event)">
         <option>Select category</option>
         <option [value]="category.id" *ngFor="let category of categories">
           {{ category.name }}
         </option>
-      </select>
+      </select> -->
       <!-- <input #category type="text" list="categoryAutocomplete" />
         <datalist id="categoryAutocomplete">
           <option>Select category</option>
@@ -16,7 +16,8 @@
         </option>
         </datalist> -->
         <input type="text" placeholder="Select Category" (keyup)="onCategory($event)" [formControlName]="'Category'"/>
-      <select
+        <input type="text" [hidden]="searchSubcategories.length === 0" placeholder="Select SubCategory" (keyup)="onSubCategory($event)" [formControlName]="'SubCategory'"/>
+      <!-- <select
         [hidden]="searchSubcategories.length === 0"
         #subcategory
         id="subCategorySelect"
@@ -28,9 +29,9 @@
         >
           {{ category.name }}
         </option>
-      </select>
-      <select #difficulty id="difficultySelect">
-        <option>Select difficulty</option>
+      </select> -->
+      <select [formControlName]="'Difficulty'" id="difficultySelect">
+        <option selected="selected">Select difficulty</option>
         <option>Easy</option>
         <option>Medium</option>
         <option>Hard</option>
@@ -50,10 +51,10 @@
   </div>
 </div>
 <div class="row">
-  <!-- <app-quiz
+  <app-quiz
     [questions]="questions$ | async"
-    [categoryId]="category.value"
-  ></app-quiz> -->
+    [categoryId]="categoryId"
+  ></app-quiz>
 </div>
 <div class="row" >
 
@@ -72,4 +73,16 @@
   (choice)="onChoice($event)">
   </app-autocomplete>
 
+
+
+</div>
+
+<div class="row">
+  <app-autocomplete
+  *ngIf="searchSubcategories?.length ?? 0 > 0"
+  [categories]="searchSubcategories"
+  [searchString]="form.get('SubCategory')?.value"
+  [hideDropdown]="hideSubCategoryDropdown"
+  (choice)="onSubcatChoice($event)">
+  </app-autocomplete>
 </div>

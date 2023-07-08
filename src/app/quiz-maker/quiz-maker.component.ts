@@ -19,8 +19,11 @@ export class QuizMakerComponent {
   questions$!: Observable<Question[]>;
 
   hideDropdown: boolean = false;
+  hideSubCategoryDropdown: boolean = false;
 
   form: FormGroup;
+
+  categoryId: string = '';
 
   constructor(protected quizService: QuizService, private formBuilder: FormBuilder) {
     this.fullCategories$ = quizService.getAllCategories();
@@ -28,7 +31,7 @@ export class QuizMakerComponent {
     this.form = this.formBuilder.group({
       Category: new FormControl(),
       SubCategory: new FormControl(),
-      Difficulty: new FormControl()
+      Difficulty: new FormControl({ value: 'Select difficulty', disabled: false })
     })
     // this.categories$.subscribe(result => console.log(result));
 
@@ -78,19 +81,29 @@ export class QuizMakerComponent {
 
   createQuiz(): void {
     const vals = this.form.value;
-    console.log('asdflkjasdlfk');
+    console.log('asdflkjasdlfk', vals);
 
 
-    const catstring = (vals.SubCategory ?? vals.Category).toString();
-    console.log(catstring);
-    this.questions$ = this.quizService.createQuiz(
-      vals.SubCategory && vals.SubCategory !== '0' ? vals.SubCategory : vals.Category,
-      vals.Difficulty as Difficulty,
-      5
-    );
+    const catstring = (vals.SubCategory ?? vals.Category).toString() ?? '';
+
+
+    this.fullCategories$.subscribe((categories) => {
+      console.log(categories);
+      const cat = categories.find(c => c.name.toLocaleLowerCase() === catstring.toLocaleLowerCase())?.id?.toString() ?? '';
+      this.questions$ = this.quizService.createQuiz(
+        cat,
+        vals.Difficulty as Difficulty,
+        5
+      );
+    });
+
   }
 
   onCategory(event: any) {
+    console.log('key', event);
+  }
+
+  onSubCategory(event: any) {
     console.log('key', event);
   }
 
@@ -98,5 +111,15 @@ export class QuizMakerComponent {
     console.log('selection', event); // this is it
     // this.hideDropdown = true;
     this.form.get('Category')?.patchValue(event.name);
+    this.categoryId = event.id;
+    this.searchSubcategories = this.subcategories.filter(
+      (sc) => sc.parentId === event.id
+    );
+    console.log(this.searchSubcategories);
+  }
+
+  onSubcatChoice(event: any) {
+    this.form.get('SubCategory')?.patchValue(event.name);
+    this.categoryId = event.id;
   }
 }
