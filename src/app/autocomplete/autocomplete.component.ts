@@ -51,7 +51,8 @@ export class AutocompleteComponent implements OnChanges {
     this.choice.emit(event);
   }
 
-  onClickRow(event: any) {
+  onClickRow(event: any, item: any) {
     // todo - row click
+    this.choice.emit(item);
   }
 }

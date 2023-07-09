@@ -71,10 +71,7 @@ export class QuizMakerComponent {
 
   createQuiz(): void {
     const vals = this.form.value;
-
-
     const catstring = (vals.SubCategory ?? vals.Category).toString() ?? '';
-
 
     this.fullCategories$.subscribe((categories) => {
       const cat = categories.find(c => c.name.toLocaleLowerCase() === catstring.toLocaleLowerCase())?.id?.toString() ?? '';

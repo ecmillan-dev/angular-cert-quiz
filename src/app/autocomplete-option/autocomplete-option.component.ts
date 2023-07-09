@@ -25,6 +25,7 @@ export class AutocompleteOptionComponent implements OnChanges {
 
         let matchIndex = this.item[this.nameColumn].toLocaleLowerCase().indexOf(this.searchString.toLocaleLowerCase());
 
+        // break down substring matches
         if (matchIndex !== -1) {
           let newName = this.item[this.nameColumn];
           if (matchIndex === 0) {
