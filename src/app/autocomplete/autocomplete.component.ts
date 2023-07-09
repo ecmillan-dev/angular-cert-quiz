@@ -27,14 +27,12 @@ export class AutocompleteComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     const searchChange = changes['searchString'];
     const categoryChange = changes['categories'];
-    console.log(changes);
     if (searchChange) {
       this.searchString = searchChange.currentValue;
       this.filterCategories(this.searchString ?? '', this.items);
     }
     if (categoryChange) {
       this.items = categoryChange.currentValue;
-      console.log('filterCategories', categoryChange.currentValue, this.items);
       this.filterCategories(this.searchString ?? '', this.items);
     }
 
@@ -54,6 +52,6 @@ export class AutocompleteComponent implements OnChanges {
   }
 
   onClickRow(event: any) {
-    console.log(event);
+    // todo - row click
   }
 }

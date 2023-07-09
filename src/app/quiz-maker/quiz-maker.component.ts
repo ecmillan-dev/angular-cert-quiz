@@ -33,7 +33,7 @@ export class QuizMakerComponent {
       SubCategory: new FormControl(),
       Difficulty: new FormControl({ value: 'Select difficulty', disabled: false })
     })
-    // this.categories$.subscribe(result => console.log(result));
+
 
     this.fullCategories$.subscribe((categories) => {
       categories.forEach((c) => {
@@ -56,24 +56,16 @@ export class QuizMakerComponent {
           }
         }
       });
-      console.log(this.categories, this.subcategories);
 
-      // this.categories$ = of([...new Set(categories.map(c => {
-      //   const categoryParts = c.name.split(':');
-      //   c.name = c.name.substring(0, c.name.indexOf(':') === -1 ? c.name.length : c.name.indexOf(':'));
-      //   return c;
-      // }))]);
     });
-    console.log(this.categories, this.subcategories);
+
 
     this.form.get('Category')?.valueChanges.subscribe(category => {
 
-      console.log(category);
     })
   }
 
   setSubcategories(cat: any): void {
-    console.log(cat);
     this.searchSubcategories = this.subcategories.filter(
       (sc) => sc.parentId === this.categories.find(c => c.name === cat.target.value)?.id
     );
@@ -82,14 +74,12 @@ export class QuizMakerComponent {
 
   createQuiz(): void {
     const vals = this.form.value;
-    console.log('asdflkjasdlfk', vals);
 
 
     const catstring = (vals.SubCategory ?? vals.Category).toString() ?? '';
 
 
     this.fullCategories$.subscribe((categories) => {
-      console.log(categories);
       const cat = categories.find(c => c.name.toLocaleLowerCase() === catstring.toLocaleLowerCase())?.id?.toString() ?? '';
       this.questions$ = this.quizService.createQuiz(
         cat,
@@ -101,28 +91,24 @@ export class QuizMakerComponent {
   }
 
   onCategory(event: any) {
-    console.log('key', event);
     this.hideDropdown = false;
     this.hideSubCategoryDropdown = true;
     this.form.get('SubCategory')?.patchValue('');
   }
 
   onSubCategory(event: any) {
-    console.log('key', event);
     this.hideSubCategoryDropdown = false;
   }
 
   onChoice(event: any) {
-    console.log('selection', event); // this is it
     this.hideDropdown = true;
     this.form.get('Category')?.patchValue(event.name);
     this.form.get('SubCategory')?.patchValue('');
     this.categoryId = event.id;
-    console.log('subcats', this.subcategories);
     this.searchSubcategories = this.subcategories.filter(
       (sc) => sc.parentId === event.id
     );
-    console.log(this.searchSubcategories);
+
   }
 
   onSubcatChoice(event: any) {

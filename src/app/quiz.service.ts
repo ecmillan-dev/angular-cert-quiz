@@ -31,7 +31,6 @@ export class QuizService {
     difficulty: Difficulty,
     questionNumber: number
   ): Observable<Question[]> {
-    console.log(categoryId, difficulty);
     return this.http
       .get<{ results: ApiQuestion[] }>(
         `${

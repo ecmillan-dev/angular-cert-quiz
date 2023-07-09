@@ -16,24 +16,12 @@ import { Question } from '../data.models';
 })
 export class QuestionComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('change', changes);
-    // throw new Error('Method not implemented.');
+
+
     const questionChange = changes['hasChangedQuestion'];
     if (questionChange) {
       this.hasChangedQuestion = questionChange.currentValue;
     }
-
-    // const newQuestionChange = changes['question'];
-    // if (newQuestionChange) {
-    //   const newQ = newQuestionChange.currentValue as Question;
-    //   this.question = newQ;
-    //   // this.question.all_answers = newQ.all_answers;
-    //   // this.question.correct_answer = newQ.correct_answer;
-    //   // this.question.difficulty = newQ.difficulty;
-    //   // this.question.incorrect_answers = newQ.incorrect_answers;
-    //   // this.question.question = newQ.question;
-    //   // this.question.type = newQ.type;
-    // }
   }
   @Input({ required: true })
   question!: Question;
