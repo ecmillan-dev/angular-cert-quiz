@@ -28,6 +28,7 @@ export class QuizMakerComponent {
   constructor(protected quizService: QuizService, private formBuilder: FormBuilder) {
     this.fullCategories$ = quizService.getAllCategories();
 
+    // init form
     this.form = this.formBuilder.group({
       Category: new FormControl(),
       SubCategory: new FormControl(),
@@ -35,6 +36,7 @@ export class QuizMakerComponent {
     })
 
 
+    // parse the service result
     this.fullCategories$.subscribe((categories) => {
       categories.forEach((c) => {
         const categoryParts = c.name.split(':');
@@ -56,13 +58,8 @@ export class QuizMakerComponent {
           }
         }
       });
-
     });
 
-
-    this.form.get('Category')?.valueChanges.subscribe(category => {
-
-    })
   }
 
   setSubcategories(cat: any): void {
