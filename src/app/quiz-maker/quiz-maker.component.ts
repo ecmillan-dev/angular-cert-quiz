@@ -130,4 +130,21 @@ export class QuizMakerComponent {
     this.categoryId = event.id;
     this.hideSubCategoryDropdown = true;
   }
+
+  onCategoryClickout() {
+    this.hideDropdown = true;
+    this.hideSubCategoryDropdown = true;
+  }
+
+  onSubCategoryClickout() {
+    this.hideSubCategoryDropdown = true;
+  }
+
+  showCategoryDropdown() {
+    this.hideDropdown = false;
+  }
+
+  showSubcategoryDropdown() {
+    this.hideSubCategoryDropdown = false;
+  }
 }

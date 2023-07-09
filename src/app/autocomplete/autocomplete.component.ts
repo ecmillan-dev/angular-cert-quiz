@@ -1,5 +1,5 @@
 import { Category } from './../data.models';
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
@@ -12,8 +12,15 @@ export class AutocompleteComponent implements OnChanges {
   @Input() hideDropdown: boolean = true;
 
   @Output() choice: EventEmitter<Category> = new EventEmitter<Category>();
+  @Output() clickOut: EventEmitter<void> = new EventEmitter<void>();
 
   matchingCategories: Category[] = [];
+
+
+  @HostListener('document:click')
+  clickout() {
+    this.clickOut.emit();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const searchChange = changes['searchString'];
