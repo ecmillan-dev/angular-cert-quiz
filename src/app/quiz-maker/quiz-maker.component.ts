@@ -18,8 +18,8 @@ export class QuizMakerComponent {
 
   questions$!: Observable<Question[]>;
 
-  hideDropdown: boolean = false;
-  hideSubCategoryDropdown: boolean = false;
+  hideDropdown: boolean = true;
+  hideSubCategoryDropdown: boolean = true;
 
   form: FormGroup;
 
@@ -122,6 +122,7 @@ export class QuizMakerComponent {
 
   showCategoryDropdown() {
     this.hideDropdown = false;
+    console.log(this.categories);
   }
 
   showSubcategoryDropdown() {

@@ -18,7 +18,7 @@ export class QuizService {
 
   constructor(private http: HttpClient) {}
 
-  /** Pulls down cateogry list */
+  /** Pulls down category list */
   getAllCategories(): Observable<Category[]> {
     return this.http
       .get<{ trivia_categories: Category[] }>(this.API_URL + 'api_category.php')

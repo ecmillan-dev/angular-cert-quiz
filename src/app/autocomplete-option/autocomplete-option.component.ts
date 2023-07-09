@@ -22,7 +22,6 @@ export class AutocompleteOptionComponent implements OnChanges {
     if (change) {
       this.matches = [];
       if (this.searchString) {
-
         let matchIndex = this.item[this.nameColumn].toLocaleLowerCase().indexOf(this.searchString.toLocaleLowerCase());
 
         // break down substring matches
@@ -49,9 +48,8 @@ export class AutocompleteOptionComponent implements OnChanges {
         }
       } else {
         this.matches.push({stringValue: this.item[this.nameColumn], isMatch: false});
-        }
+      }
     }
-
   }
 
   onOptionClick(event: any) {

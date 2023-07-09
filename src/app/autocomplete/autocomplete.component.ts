@@ -1,12 +1,15 @@
 import { Category } from './../data.models';
-import { Component, EventEmitter, HostListener, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.css']
 })
-export class AutocompleteComponent implements OnChanges {
+export class AutocompleteComponent implements OnChanges, OnInit {
+  ngOnInit(): void {
+    this.filterItems(this.searchString ?? '', this.items);
+  }
   @Input() items!: any[];
   @Input() searchString?: string;
   @Input() hideDropdown: boolean = true;
@@ -16,8 +19,7 @@ export class AutocompleteComponent implements OnChanges {
   @Output() choice: EventEmitter<any> = new EventEmitter<any>();
   @Output() clickOut: EventEmitter<void> = new EventEmitter<void>();
 
-  matchingItems: Category[] = [];
-
+  matchingItems: any[] = [];
 
   @HostListener('document:click')
   clickout() {
@@ -26,20 +28,18 @@ export class AutocompleteComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const searchChange = changes['searchString'];
-    const categoryChange = changes['categories'];
+    const itemChange = changes['items'];
     if (searchChange) {
       this.searchString = searchChange.currentValue;
-      this.filterCategories(this.searchString ?? '', this.items);
+      this.filterItems(this.searchString ?? '', this.items);
     }
-    if (categoryChange) {
-      this.items = categoryChange.currentValue;
-      this.filterCategories(this.searchString ?? '', this.items);
+    if (itemChange) {
+      this.items = itemChange.currentValue;
+      this.filterItems(this.searchString ?? '', this.items);
     }
-
-
   }
 
-  private filterCategories(searchString: string, items: any[]) {
+  private filterItems(searchString: string, items: any[]) {
     if (items && searchString) {
       this.matchingItems = items.filter(c => c[this.nameColumn].toLocaleLowerCase().includes(searchString?.toLocaleLowerCase() ?? ''));
     } else {
@@ -52,7 +52,6 @@ export class AutocompleteComponent implements OnChanges {
   }
 
   onClickRow(event: any, item: any) {
-    // todo - row click
     this.choice.emit(item);
   }
 }

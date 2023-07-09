@@ -1,12 +1,12 @@
 <div class="row col-sm-12">
   <div class="quiz-container">
-
     <form *ngIf="form" [formGroup]="form">
         <div class="row col-sm-12">
           <div class="quiz-column">
             <input type="text" placeholder="Select Category" (keyup)="onCategory($event)" [formControlName]="'Category'" (click)="showCategoryDropdown()"/>
             <ng-container *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown" >
-              <div *ngIf="categories?.length ?? 0 > 0" class="category-autocomplete">
+              <div *ngIf="categories?.length ?? 0 > 0 && !hideDropdown" class="category-autocomplete">
+                <span>hello world</span>
                 <app-autocomplete
                   *ngIf="categories?.length ?? 0 > 0"
                   [items]="categories"
@@ -37,7 +37,6 @@
               </div>
             </ng-container>
           </div>
-
           <div class="quiz-column">
             <select [formControlName]="'Difficulty'" id="difficultySelect">
               <option selected="selected">Select difficulty</option>
@@ -46,12 +45,8 @@
               <option>Hard</option>
             </select>
           </div>
-
         </div>
-
-
     </form>
-
 
     <button
       class="primary"
@@ -67,21 +62,4 @@
     [questions]="questions$ | async"
     [categoryId]="categoryId"
   ></app-quiz>
-</div>
-<div class="row" >
-
-  <!-- <app-autocomplete
-  *ngIf="categories?.length ?? 0 > 0"
-  [categories]="categories"
-  [searchString]="categoryAutocomplete?.value"
-  [hideDropdown]="hideDropdown"
-  (choice)="onChoice($event)">
-  </app-autocomplete> -->
-
-
-
-</div>
-
-<div class="row">
-
 </div>
