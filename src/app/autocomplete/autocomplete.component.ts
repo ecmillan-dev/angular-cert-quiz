@@ -21,10 +21,11 @@ export class AutocompleteComponent implements OnChanges {
     console.log(changes);
     if (searchChange) {
       this.searchString = searchChange.currentValue;
+      this.filterCategories(this.searchString ?? '', this.categories);
     }
     if (categoryChange) {
       this.categories = categoryChange.currentValue;
-      console.log('fattot', categoryChange.currentValue, this.categories);
+      console.log('filterCategories', categoryChange.currentValue, this.categories);
       this.filterCategories(this.searchString ?? '', this.categories);
     }
 
