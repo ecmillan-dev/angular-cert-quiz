@@ -122,7 +122,7 @@ export class QuizMakerComponent {
 
   showCategoryDropdown() {
     this.hideDropdown = false;
-    console.log(this.categories);
+    console.log(this.categories, this.hideDropdown);
   }
 
   showSubcategoryDropdown() {

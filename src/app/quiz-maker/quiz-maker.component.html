@@ -4,9 +4,8 @@
         <div class="row col-sm-12">
           <div class="quiz-column">
             <input type="text" placeholder="Select Category" (keyup)="onCategory($event)" [formControlName]="'Category'" (click)="showCategoryDropdown()"/>
-            <ng-container *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown" >
+            <ng-container *ngIf="(categories?.length ?? 0 > 0 && !hideDropdown)" >
               <div *ngIf="categories?.length ?? 0 > 0 && !hideDropdown" class="category-autocomplete">
-                <span>hello world</span>
                 <app-autocomplete
                   *ngIf="categories?.length ?? 0 > 0"
                   [items]="categories"
@@ -25,14 +24,14 @@
             <ng-container *ngIf="(searchSubcategories?.length ?? 0 > 0) && !hideSubCategoryDropdown" >
               <div class="category-autocomplete">
                 <app-autocomplete
-                *ngIf="searchSubcategories?.length ?? 0 > 0"
-                [items]="searchSubcategories"
-                [searchString]="form.get('SubCategory')?.value"
-                [hideDropdown]="hideSubCategoryDropdown"
-                [idColumn]="'id'"
+                  *ngIf="searchSubcategories?.length ?? 0 > 0"
+                  [items]="searchSubcategories"
+                  [searchString]="form.get('SubCategory')?.value"
+                  [hideDropdown]="hideSubCategoryDropdown"
+                  [idColumn]="'id'"
                   [nameColumn]="'name'"
-                (clickOut)="onSubCategoryClickout()"
-                (choice)="onSubcatChoice($event)">
+                  (clickOut)="onSubCategoryClickout()"
+                  (choice)="onSubcatChoice($event)">
                 </app-autocomplete>
               </div>
             </ng-container>
