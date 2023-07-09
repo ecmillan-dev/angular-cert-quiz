@@ -7,14 +7,16 @@ import { Component, EventEmitter, HostListener, Input, OnChanges, Output, Simple
   styleUrls: ['./autocomplete.component.css']
 })
 export class AutocompleteComponent implements OnChanges {
-  @Input() categories!: Category[];
+  @Input() items!: any[];
   @Input() searchString?: string;
   @Input() hideDropdown: boolean = true;
+  @Input() idColumn!: string;
+  @Input() nameColumn!: string;
 
-  @Output() choice: EventEmitter<Category> = new EventEmitter<Category>();
+  @Output() choice: EventEmitter<any> = new EventEmitter<any>();
   @Output() clickOut: EventEmitter<void> = new EventEmitter<void>();
 
-  matchingCategories: Category[] = [];
+  matchingItems: Category[] = [];
 
 
   @HostListener('document:click')
@@ -28,23 +30,22 @@ export class AutocompleteComponent implements OnChanges {
     console.log(changes);
     if (searchChange) {
       this.searchString = searchChange.currentValue;
-      this.filterCategories(this.searchString ?? '', this.categories);
+      this.filterCategories(this.searchString ?? '', this.items);
     }
     if (categoryChange) {
-      this.categories = categoryChange.currentValue;
-      console.log('filterCategories', categoryChange.currentValue, this.categories);
-      this.filterCategories(this.searchString ?? '', this.categories);
+      this.items = categoryChange.currentValue;
+      console.log('filterCategories', categoryChange.currentValue, this.items);
+      this.filterCategories(this.searchString ?? '', this.items);
     }
 
 
   }
 
-  private filterCategories(searchString: string, categories: Category[]) {
-    if (categories && searchString) {
-      this.matchingCategories = categories.filter(c => c.name.toLocaleLowerCase().includes(searchString?.toLocaleLowerCase() ?? ''));
-      console.log(this.matchingCategories, categories, searchString);
+  private filterCategories(searchString: string, items: any[]) {
+    if (items && searchString) {
+      this.matchingItems = items.filter(c => c[this.nameColumn].toLocaleLowerCase().includes(searchString?.toLocaleLowerCase() ?? ''));
     } else {
-      this.matchingCategories = categories;
+      this.matchingItems = items;
     }
   }
 

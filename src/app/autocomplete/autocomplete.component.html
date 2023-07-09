@@ -1,9 +1,11 @@
 
 
-<div class="row option" *ngFor="let category of matchingCategories" (click)="onClickRow($event)">
+<div class="row option" *ngFor="let item of matchingItems" (click)="onClickRow($event)">
   <app-autocomplete-option
     [searchString]="searchString"
-    [category]="category"
+    [item]="item"
+    [idColumn]="'id'"
+    [nameColumn]="'name'"
     (choice)="onChoice($event)"
   >
   </app-autocomplete-option>

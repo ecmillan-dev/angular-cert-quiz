@@ -8,8 +8,11 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 })
 export class AutocompleteOptionComponent implements OnChanges {
   @Input() searchString?: string;
-  @Input() category!: Category;
-  @Output() choice: EventEmitter<Category> = new EventEmitter<Category>();
+  @Input() item!: any;
+  @Output() choice: EventEmitter<any> = new EventEmitter<any>();
+  @Input() idColumn!: string;
+  @Input() nameColumn!: string;
+
   matches: AutocompleteMatch[] = [];
 
 
@@ -20,12 +23,12 @@ export class AutocompleteOptionComponent implements OnChanges {
       this.matches = [];
       if (this.searchString) {
 
-        let matchIndex = this.category.name.toLocaleLowerCase().indexOf(this.searchString.toLocaleLowerCase());
+        let matchIndex = this.item[this.nameColumn].toLocaleLowerCase().indexOf(this.searchString.toLocaleLowerCase());
 
         if (matchIndex !== -1) {
-          let newName = this.category.name;
+          let newName = this.item[this.nameColumn];
           if (matchIndex === 0) {
-            this.matches.push({stringValue: this.category.name.substring(0, this.searchString.length), isMatch: true});
+            this.matches.push({stringValue: this.item[this.nameColumn].substring(0, this.searchString.length), isMatch: true});
             newName = newName.substring(this.searchString.length);
           }
 
@@ -41,17 +44,17 @@ export class AutocompleteOptionComponent implements OnChanges {
             }
           }
         } else {
-          this.matches.push({stringValue: this.category.name, isMatch: false});
+          this.matches.push({stringValue: this.item[this.nameColumn], isMatch: false});
         }
       } else {
-        this.matches.push({stringValue: this.category.name, isMatch: false});
+        this.matches.push({stringValue: this.item[this.nameColumn], isMatch: false});
         }
     }
 
   }
 
   onOptionClick(event: any) {
-    this.choice.emit(this.category);
+    this.choice.emit(this.item);
   }
 }
 
