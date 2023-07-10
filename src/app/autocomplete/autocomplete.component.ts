@@ -1,10 +1,19 @@
 import { Category } from './../data.models';
-import { Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 
 @Component({
   selector: 'app-autocomplete',
   templateUrl: './autocomplete.component.html',
-  styleUrls: ['./autocomplete.component.css']
+  styleUrls: ['./autocomplete.component.css'],
 })
 export class AutocompleteComponent implements OnChanges, OnInit {
   ngOnInit(): void {
@@ -15,15 +24,19 @@ export class AutocompleteComponent implements OnChanges, OnInit {
   @Input() hideDropdown: boolean = true;
   @Input() idColumn!: string;
   @Input() nameColumn!: string;
+  @Input() inputFieldId!: string;
 
   @Output() choice: EventEmitter<any> = new EventEmitter<any>();
   @Output() clickOut: EventEmitter<void> = new EventEmitter<void>();
 
   matchingItems: any[] = [];
 
-  @HostListener('document:click')
-  clickout() {
-    this.clickOut.emit();
+  @HostListener('document:click', ['$event.target'])
+  clickout(event: any) {
+    // inputFieldId
+    if (event?.id !== this.inputFieldId) {
+      this.clickOut.emit();
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -41,7 +54,11 @@ export class AutocompleteComponent implements OnChanges, OnInit {
 
   private filterItems(searchString: string, items: any[]) {
     if (items && searchString) {
-      this.matchingItems = items.filter(c => c[this.nameColumn].toLocaleLowerCase().includes(searchString?.toLocaleLowerCase() ?? ''));
+      this.matchingItems = items.filter((c) =>
+        c[this.nameColumn]
+          .toLocaleLowerCase()
+          .includes(searchString?.toLocaleLowerCase() ?? '')
+      );
     } else {
       this.matchingItems = items;
     }
