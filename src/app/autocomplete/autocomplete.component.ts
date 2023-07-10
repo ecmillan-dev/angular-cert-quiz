@@ -34,7 +34,9 @@ export class AutocompleteComponent implements OnChanges, OnInit {
   @HostListener('document:click', ['$event.target'])
   clickout(event: any) {
     // inputFieldId
-    if (event?.id !== this.inputFieldId) {
+    if (event?.id === this.inputFieldId) {
+      this.filterItems(this.searchString ?? '', this.items);
+    } else {
       this.clickOut.emit();
     }
   }
