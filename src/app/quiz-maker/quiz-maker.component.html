@@ -11,13 +11,13 @@
             (click)="showCategoryDropdown()"
             id="Category"
           />
-          <ng-container *ngIf="(categories?.length ?? 0) > 0 && !hideDropdown">
+          <ng-container *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown">
             <div
-              *ngIf="(categories?.length ?? 0) > 0 && !hideDropdown"
+              *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown"
               class="category-autocomplete"
             >
               <app-autocomplete
-                *ngIf="(categories?.length ?? 0) > 0"
+                *ngIf="categories?.length ?? 0 > 0"
                 [items]="categories"
                 [searchString]="form.get('Category')?.value"
                 [hideDropdown]="hideDropdown"
