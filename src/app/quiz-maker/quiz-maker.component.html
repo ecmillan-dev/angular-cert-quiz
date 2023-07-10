@@ -10,6 +10,7 @@
             [formControlName]="'Category'"
             (click)="showCategoryDropdown()"
             id="Category"
+            autocomplete="off"
           />
           <ng-container *ngIf="(categories?.length ?? 0 > 0) && !hideDropdown">
             <div
@@ -40,6 +41,7 @@
             [formControlName]="'SubCategory'"
             (click)="showSubcategoryDropdown()"
             id="SubCategory"
+            autocomplete="off"
           />
           <ng-container
             *ngIf="
