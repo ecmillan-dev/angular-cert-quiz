@@ -25,16 +25,21 @@ export class QuizMakerComponent {
 
   categoryId: string = '';
 
-  constructor(protected quizService: QuizService, private formBuilder: FormBuilder) {
+  constructor(
+    protected quizService: QuizService,
+    private formBuilder: FormBuilder
+  ) {
     this.fullCategories$ = quizService.getAllCategories();
 
     // init form
     this.form = this.formBuilder.group({
       Category: new FormControl(),
       SubCategory: new FormControl(),
-      Difficulty: new FormControl({ value: 'Select difficulty', disabled: false })
-    })
-
+      Difficulty: new FormControl({
+        value: 'Select difficulty',
+        disabled: false,
+      }),
+    });
 
     // parse the service result
     this.fullCategories$.subscribe((categories) => {
@@ -59,12 +64,13 @@ export class QuizMakerComponent {
         }
       });
     });
-
   }
 
   setSubcategories(cat: any): void {
     this.searchSubcategories = this.subcategories.filter(
-      (sc) => sc.parentId === this.categories.find(c => c.name === cat.target.value)?.id
+      (sc) =>
+        sc.parentId ===
+        this.categories.find((c) => c.name === cat.target.value)?.id
     );
     this.hideSubCategoryDropdown = false;
   }
@@ -74,14 +80,18 @@ export class QuizMakerComponent {
     const catstring = (vals.SubCategory ?? vals.Category).toString() ?? '';
 
     this.fullCategories$.subscribe((categories) => {
-      const cat = categories.find(c => c.name.toLocaleLowerCase() === catstring.toLocaleLowerCase())?.id?.toString() ?? '';
+      const cat =
+        categories
+          .find(
+            (c) => c.name.toLocaleLowerCase() === catstring.toLocaleLowerCase()
+          )
+          ?.id?.toString() ?? '';
       this.questions$ = this.quizService.createQuiz(
         cat,
         vals.Difficulty as Difficulty,
         5
       );
     });
-
   }
 
   onCategory(event: any) {
@@ -102,7 +112,6 @@ export class QuizMakerComponent {
     this.searchSubcategories = this.subcategories.filter(
       (sc) => sc.parentId === event.id
     );
-
   }
 
   onSubcatChoice(event: any) {
@@ -122,7 +131,6 @@ export class QuizMakerComponent {
 
   showCategoryDropdown() {
     this.hideDropdown = false;
-    console.log(this.categories, this.hideDropdown);
   }
 
   showSubcategoryDropdown() {
