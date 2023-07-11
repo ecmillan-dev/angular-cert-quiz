@@ -131,6 +131,7 @@ export class QuizMakerComponent {
 
   showCategoryDropdown() {
     this.hideDropdown = false;
+    this.form.get('Category')?.patchValue(this.form.get('Category')?.value);
   }
 
   showSubcategoryDropdown() {
